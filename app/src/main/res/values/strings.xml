@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Coursework</string>
+    <string name="action_settings">Settings</string>
+    <string name="landSplashPath">res/drawable/splash_landscape.png</string>
+    <string name="splashImageViewDescription">splashcreen image</string>
+</resources>
