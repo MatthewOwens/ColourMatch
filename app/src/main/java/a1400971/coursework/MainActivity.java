@@ -15,6 +15,11 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import a1400971.coursework.GameBox;
 
 public class MainActivity extends Activity implements
@@ -60,6 +65,31 @@ public class MainActivity extends Activity implements
         if(view == leaderBoardButton)
         {
             Log.i(TAG, "View Leaderboard Pressed!");
+            try {
+                String input = "no_name|0\n";
+                byte[] buffer = new byte[1024];
+                StringBuffer fileContent = new StringBuffer("");
+                int n;
+                FileOutputStream fos = openFileOutput("leaderboard.txt", MODE_PRIVATE);
+
+                for(int i = 0; i < 10; ++i)
+                    fos.write(input.getBytes());
+                fos.close();
+
+                FileInputStream fis = openFileInput("leaderboard.txt");
+
+                // Appending the content of the file to our string
+                while((n = fis.read(buffer)) != -1) {
+                    fileContent.append(new String(buffer, 0, n));
+                }
+
+                // Outputing the value of the file
+                Log.i(TAG, fileContent.toString());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
