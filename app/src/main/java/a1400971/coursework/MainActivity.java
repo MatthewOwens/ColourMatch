@@ -1,6 +1,7 @@
 package a1400971.coursework;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,6 +29,7 @@ public class MainActivity extends Activity implements
 
     private static final String TAG = "entryActivity";
     static int gridSize = 6;
+    int startTime = -1;
     GameBox[][] level = new GameBox[6][6];
 
     Button startButton;
@@ -60,14 +62,20 @@ public class MainActivity extends Activity implements
         if(view == startButton)
         {
             Log.i(TAG, "Start Game Pressed!");
+            execGame();
         }
 
         if(view == leaderBoardButton)
         {
             Log.i(TAG, "View Leaderboard Pressed!");
             try {
-                String input = "no_name|0\n";
+                String input = "no_name,0\n";
+                String[] values = new String[10];
+                String[][] parts = new String[10][];
+
                 byte[] buffer = new byte[1024];
+
+                // Populating our buffer
                 StringBuffer fileContent = new StringBuffer("");
                 int n;
                 FileOutputStream fos = openFileOutput("leaderboard.txt", MODE_PRIVATE);
@@ -83,13 +91,38 @@ public class MainActivity extends Activity implements
                     fileContent.append(new String(buffer, 0, n));
                 }
 
+                // Populating our arrays
+                values = fileContent.toString().split("\\r?\\n", 10);
+
+                for(int i = 0; i < 10; ++i)
+                    parts[i] = values[i].split(",");
+
+                for(int i = 0; i < 10; ++i) {
+                    Log.i(TAG, parts[i][0]);
+                    Log.i(TAG, parts[i][1]);
+                }
+
                 // Outputing the value of the file
-                Log.i(TAG, fileContent.toString());
+                //Log.i(TAG, fileContent.toString());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    // Changing activity
+    public void execGame(){
+        Log.i(TAG, "execGame called");
+        Intent intent = new Intent(getApplicationContext(), Game.class);
+        startActivity(intent);
+    }
+
+    public void execLeaderboard(){
+        Log.i(TAG, "execLeaderboard called");
+        Intent intent = new Intent(getApplicationContext(), Leaderboard.class);
+        startActivity(intent);
     }
 }
