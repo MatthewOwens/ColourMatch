@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.widget.Button;
 
 /**
- * Created by Matthew on 03/12/15.
- *
  * Class to describe a coloured box in our game.
  */
 public class GameBox {

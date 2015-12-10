@@ -68,7 +68,8 @@ public class MainActivity extends Activity implements
         if(view == leaderBoardButton)
         {
             Log.i(TAG, "View Leaderboard Pressed!");
-            try {
+            execLeaderboard();
+            /*try {
                 String input = "no_name,0\n";
                 String[] values = new String[10];
                 String[][] parts = new String[10][];
@@ -108,7 +109,7 @@ public class MainActivity extends Activity implements
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 

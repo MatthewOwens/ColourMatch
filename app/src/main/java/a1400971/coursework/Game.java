@@ -1,11 +1,13 @@
 package a1400971.coursework;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import java.util.Calendar;
 import java.util.Random;
 
 /*import a1400971.coursework.GameBox;*/
@@ -30,6 +32,7 @@ public class Game extends Activity implements
 
         prevClicked = new GameBox(getApplicationContext());
         int[] colourCounts = new int[6];
+        startTime = calendar.getTimeInMillis();
         Random rand = new Random();
 
         // Initilising our gameboxes
@@ -80,13 +83,35 @@ public class Game extends Activity implements
                     }
 
                     prevClicked = level[i][j];
+
+                    // No need to continue
+                    break;
                 }
             }
         }
-    }
 
+        // Checking if all the tiles have been cleared
+        boolean complete = true;
+        for(int i = 0; i < levelSize; ++i){
+            for(int j = 0; j < levelSize; ++j){
+                if(level[i][j].getColour() != GameBox.Colour.BLANK){
+                    complete = false;
+                    break;
+                }
+            }
+        }
+
+        if(complete)
+        {
+            Intent intent = new Intent(getApplicationContext(), Leaderboard.class);
+            intent.putExtra("COMPLETION_TIME", (calendar.getTimeInMillis() - startTime));
+            startActivity(intent);
+        }
+    }
     private String TAG = "gameActivity";
     private static int levelSize = 6;
     private GameBox[][] level = new GameBox[levelSize][levelSize];
     private GameBox prevClicked;
+    private Calendar calendar = Calendar.getInstance();
+    private long startTime;
 }
