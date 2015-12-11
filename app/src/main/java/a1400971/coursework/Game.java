@@ -104,7 +104,16 @@ public class Game extends Activity implements
         if(complete)
         {
             Intent intent = new Intent(getApplicationContext(), Leaderboard.class);
-            intent.putExtra("COMPLETION_TIME", (calendar.getTimeInMillis() - startTime));
+            long currentTime = calendar.getTimeInMillis();
+            //long completionTime = calendar.getTimeInMillis() - startTime;
+            long completionTime  = currentTime - startTime;
+
+            // No idea why completionTime is always zero, could be an emulation issue
+            intent.putExtra("COMPLETION_TIME", completionTime);
+
+            Log.i(TAG, "Start time: " + startTime);
+            Log.i(TAG, "Curr. time: " + currentTime);
+            Log.i(TAG, "Comp. time: " + completionTime);
             startActivity(intent);
         }
     }
