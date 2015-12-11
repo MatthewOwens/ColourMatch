@@ -39,8 +39,8 @@ public class GameBox {
                 button.setBackgroundColor(Color.rgb(45, 45, 45));
                 break;
             case BLANK:
-                //button.setBackgroundColor(Color.rgb(45, 45, 45));
-                button.setBackgroundColor(Color.rgb(255, 255, 255));
+                button.setBackgroundColor(Color.rgb(45, 45, 45));
+                //button.setBackgroundColor(Color.rgb(255, 255, 255));
                 break;
             case RED:
                 button.setBackgroundColor(Color.rgb(179, 80, 80));
