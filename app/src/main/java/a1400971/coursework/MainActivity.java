@@ -34,6 +34,7 @@ public class MainActivity extends Activity implements
 
     Button startButton;
     Button leaderBoardButton;
+    Button finalButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +51,11 @@ public class MainActivity extends Activity implements
         // Initilising our buttons
         startButton = (Button)findViewById(R.id.startButton);
         leaderBoardButton = (Button)findViewById(R.id.leaderboardButton);
+        finalButton = (Button)findViewById(R.id.finalButton);
 
         startButton.setOnClickListener(this);
         leaderBoardButton.setOnClickListener(this);
+        finalButton.setOnClickListener(this);
     }
 
     @Override
@@ -63,6 +66,10 @@ public class MainActivity extends Activity implements
         {
             Log.i(TAG, "Start Game Pressed!");
             execGame();
+        }
+
+        if(view == finalButton) {
+            execFourthScreen();
         }
 
         if(view == leaderBoardButton)
@@ -124,6 +131,12 @@ public class MainActivity extends Activity implements
     public void execLeaderboard(){
         Log.i(TAG, "execLeaderboard called");
         Intent intent = new Intent(getApplicationContext(), Leaderboard.class);
+        startActivity(intent);
+    }
+
+    public void execFourthScreen(){
+        Log.i(TAG, "execFourthScreen called");
+        Intent intent = new Intent(getApplicationContext(), FourthScreen.class);
         startActivity(intent);
     }
 }

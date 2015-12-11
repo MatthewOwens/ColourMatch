@@ -16,34 +16,20 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/imageView"
-        android:src="@drawable/splash_landscape"
+        android:src="#ff2d2d2d"
         android:scaleType="fitXY"
         android:cropToPadding="false"
         android:layout_alignParentEnd="true"
         android:contentDescription="@string/splashImageViewDescription" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Game"
-        android:id="@+id/startButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="TURN BACK ALL WHO ENTER\n THIS WRETCHED PLACE"
+        android:id="@+id/turnBackButton"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Leaderboard"
-        android:id="@+id/leaderboardButton"
-        android:layout_below="@+id/startButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp" />
+        android:background="#ff2d2d2d"
+        android:textColor="#db2020" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/finalButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="#ff2d2d2d" />
 </RelativeLayout>

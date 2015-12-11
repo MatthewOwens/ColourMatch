@@ -74,7 +74,7 @@ public class Leaderboard extends Activity implements
             scoreViews[i].setText(scoreIdString);
         }
 
-        // Starting our file stuff
+        // Starting our file stuff, if we haven't entered from the title
         worker = new Worker();
         worker.execute();
         try {
@@ -108,7 +108,7 @@ public class Leaderboard extends Activity implements
         FileOutputStream fos;
 
         try {
-            fos = openFileOutput("leaderboard.txt", MODE_PRIVATE);
+            fos = openFileOutput("Leaderboard.txt", MODE_PRIVATE);
             String line;
 
             for(int i = 0; i < numStoredScores; ++i) {
@@ -137,11 +137,10 @@ public class Leaderboard extends Activity implements
 
     //static class Worker extends AsyncTask<Void, Void, ArrayList< ArrayList<String> >{
     class Worker extends AsyncTask<Void, Void, Void> {
-        String fileName = "leaderboard.txt";
+        String fileName = "Leaderboard.txt";
 
         @Override
         protected Void doInBackground(Void... Params) {
-            Log.i(TAG, "worker thread started desu!");
             BufferedReader in;
 
             try {
@@ -155,10 +154,23 @@ public class Leaderboard extends Activity implements
                     // Parsing this line
                     names[lineNumber] = parts[0];
                     scores[lineNumber] = parts[1];
+
+                    if(names[lineNumber] == "null" || names[lineNumber] == null) {
+                        names[lineNumber] = "no_name";
+                        scores[lineNumber] = "0";
+                    }
                     lineNumber++;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+
+                // Ensuring "null" isn't written to the score portion of the string
+                // Will wipe scores though
+                for(int i = 0; i < numStoredScores; ++i) {
+                    names[i] = "no_name";
+                    scores[i] = "0";
+                }
+
             }
 
             fileReadComplete = true;
@@ -170,10 +182,16 @@ public class Leaderboard extends Activity implements
         protected void onPostExecute(Void param) {
             int i;
             // Since we can assume the scores are ordered, check from the back
-            for (i = numStoredScores - 1; i >= 0; --i) {
-                // Greater than, since lower completion times should be higher
-                if (Long.valueOf(scores[i]).longValue() > completionTime) {
-                    break;
+            //for (i = numStoredScores - 1; i >= 0; --i) {
+            for(i = 0; i < numStoredScores; ++i){
+                if(scores[i] != "null") {   // Avoiding horrible crashes
+                    if (Long.valueOf(scores[i]).longValue() < completionTime) {
+                        break;
+                    }
+                }
+                else{
+                    if(0 < completionTime)
+                        break;
                 }
             }
 

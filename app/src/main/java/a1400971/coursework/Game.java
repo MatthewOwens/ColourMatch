@@ -106,9 +106,12 @@ public class Game extends Activity implements
             Intent intent = new Intent(getApplicationContext(), Leaderboard.class);
             long currentTime = calendar.getTimeInMillis();
             //long completionTime = calendar.getTimeInMillis() - startTime;
-            long completionTime  = currentTime - startTime;
 
             // No idea why completionTime is always zero, could be an emulation issue
+            long completionTime  = currentTime - startTime;
+
+            // Bumping up the completionTime by one to test scoring properly
+            completionTime++;
             intent.putExtra("COMPLETION_TIME", completionTime);
 
             Log.i(TAG, "Start time: " + startTime);
